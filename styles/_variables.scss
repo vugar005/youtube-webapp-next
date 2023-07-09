@@ -44,7 +44,7 @@
     --yt-thumbnail-details-height: 90px;
   }
 
-  html[theme='light-theme'] {
+  html.light-theme {
     --yt-spec-background-primary: #fbfbf8;
     --yt-spec-10-percent-layer: rgba(0, 0, 0, 0.1);
     --yt-spec-badge-chip-background: rgba(0, 0, 0, 0.1);

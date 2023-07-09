@@ -1,5 +1,5 @@
 import { Fragment, ReactNode } from "react";
-import NavHeader from "../nav-header/nax-header";
+import NavHeader from "../nav-header/nav-header";
 
 interface Props {
     children?: ReactNode

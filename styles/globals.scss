@@ -1,1 +1,4 @@
-@import '../lib/ui/styles/_variables.scss';
+@import './core.scss';
+@import './scrollbar.scss';
+@import './variables.scss';
+@import './mui-overrides.scss';
