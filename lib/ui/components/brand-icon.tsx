@@ -3,7 +3,7 @@ import './brand-icon'
 import styles from './brand-icon.module.scss';
 
 interface Props {
-    className: string;
+    className?: string;
 }
 
 export default function BrandIcon(props: Props) {
