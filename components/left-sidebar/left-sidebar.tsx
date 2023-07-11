@@ -27,18 +27,17 @@ export default function () {
                 </div>
                 <div className={styles['sidebar__nav']}>
 
-                    {endpointLinks.map(endpoint => {
+                    {endpointLinks.map((endpoint, index) => {
                         return (
-                            <Fragment>
-                                <a
-                                    className={styles['sidebar-endpoint']}
-                                >
-                                    <div className={styles['sidebar-endpoint__icon']}>
-                                        <Icon>{endpoint?.icon}</Icon>
-                                    </div>
-                                    <div className={`mat-h3 ${styles['sidebar-endpoint__text']}`}>{endpoint?.text}</div>
-                                </a>
-                            </Fragment>
+                            <a
+                                key={index}
+                                className={styles['sidebar-endpoint']}
+                            >
+                                <div className={styles['sidebar-endpoint__icon']}>
+                                    <Icon>{endpoint?.icon}</Icon>
+                                </div>
+                                <div className={`mat-h3 ${styles['sidebar-endpoint__text']}`}>{endpoint?.text}</div>
+                            </a>
                         );
                     })}
 

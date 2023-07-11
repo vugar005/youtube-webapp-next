@@ -4,16 +4,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 import BrandIcon from "@/lib/ui/components/brand-icon";
 import styles from './nav-header.module.scss';
 import { NAV_FEATURES } from "./nav-header.constants";
-import { GridView, Lightbulb, Person } from "@mui/icons-material";
+import { AccountCircle, GridView, Lightbulb } from "@mui/icons-material";
 import LeftSidebar from "../left-sidebar/left-sidebar";
+import AccountSidebar from "../account-sidebar/account-sidebar";
 
 type Anchor = 'left' | 'right';
 
 
 export default function NavHeader() {
     const [featureAnchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
     const [isSidenavOpen, setSidenavOpen] = useState({
-        left: false
+        left: false,
+        right: false
     });
 
     const isFeatureMenuOpen = Boolean(featureAnchorEl);
@@ -29,7 +32,7 @@ export default function NavHeader() {
 
     const toggleDrawer = (anchor: Anchor, open: boolean) => () => {
         setSidenavOpen({ ...isSidenavOpen, [anchor]: open });
-      };
+    };
 
     return (
         <Fragment>
@@ -39,8 +42,8 @@ export default function NavHeader() {
                     <div className={styles.header__start}>
                         <div className={styles['header-nav-icon']} >
                             <IconButton
-                            className={styles['header-nav-icon__btn']}
-                            onClick={toggleDrawer('left', true)}
+                                className={styles['header-nav-icon__btn']}
+                                onClick={toggleDrawer('left', true)}
                             >
                                 <MenuIcon />
                             </IconButton>
@@ -50,9 +53,17 @@ export default function NavHeader() {
                             anchor={'left'}
                             open={isSidenavOpen['left']}
                             onClose={toggleDrawer('left', false)}
-                           >
-                            <LeftSidebar/>
-                       </Drawer>
+                        >
+                            <LeftSidebar />
+                        </Drawer>
+
+                        <Drawer
+                            anchor={'right'}
+                            open={isSidenavOpen['right']}
+                            onClose={toggleDrawer('right', false)}
+                        >
+                            <AccountSidebar />
+                        </Drawer>
 
                         <div className={styles['header-brand-icon']}>
                             <BrandIcon className={styles['brand-icon']} />
@@ -115,14 +126,17 @@ export default function NavHeader() {
                         </div>
 
                         <div className={styles['header-feature']}>
-                             <IconButton className={styles['header-nav-icon__btn']}>
+                            <IconButton className={styles['header-nav-icon__btn']}>
                                 <Lightbulb />
                             </IconButton>
                         </div>
 
                         <div className={styles['header-feature flash']}>
-                             <IconButton className={styles['header-nav-icon__btn']}>
-                                <Person />
+                            <IconButton
+                                onClick={toggleDrawer('right', true)}
+                                className={styles['header-nav-icon__btn']}
+                            >
+                                <AccountCircle />
                             </IconButton>
                         </div>
                     </div>
