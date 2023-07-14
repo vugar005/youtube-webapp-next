@@ -5,14 +5,19 @@ import { IYoutubeSearchItem } from '@/lib/ui/models/youtube-search-list.model';
 import { SEARCHLIST_MOCK } from '@/mocks/searchlist';
 import { IYoutubeVideoItem, IYoutubeVideoResult } from '@/lib/ui/models/youtube-video-list.model';
 import VideoThumbnail from '@/lib/ui/components/video-thumbnail/video-thumbnail';
+import { useAppSelector } from '@/store/hooks';
+import { selectSearchQuery } from '@/store/reducers/video.reducer';
 
 export default function BrowserVideos() {
+    const q = useAppSelector(selectSearchQuery);
+    console.log(q);
     const [videoLinks, setVideoLinks] = useState<IYoutubeSearchItem[]>(SEARCHLIST_MOCK.items);
     const [videoDetails, setVideoDetails] = useState<IYoutubeVideoResult[]>([]);
 
     const getVideoDetail = (id: string | undefined): IYoutubeVideoItem | undefined => {
         return videoDetails?.find((item) => item.items[0].id === id)?.items?.[0];
     }
+
     return (
         <Fragment>
             <div className={styles.browseVideos}>
