@@ -3,7 +3,11 @@ import { MINI_SIDEBAR_NAV_ENDPOINTS } from "./mini-sidebar.constants";
 import styles from './mini-sidebar.module.scss';
 import { Icon } from "@mui/material";
 
-export default function MiniSidebar() {
+interface Props {
+    className?: string;
+}
+
+export default function MiniSidebar(props: Props) {
     const endpoints = MINI_SIDEBAR_NAV_ENDPOINTS;
 
     return (
