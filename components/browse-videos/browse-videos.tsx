@@ -1,11 +1,18 @@
 import { Fragment, useState } from 'react';
 import styles from './browse-videos.module.scss';
 import MiniSidebar from '../mini-sidebar/mini-sidebar';
-import VideoPlayer from '@/lib/ui/components/video-player/video-player';
+import { IYoutubeSearchItem } from '@/lib/ui/models/youtube-search-list.model';
+import { SEARCHLIST_MOCK } from '@/mocks/searchlist';
+import { IYoutubeVideoItem, IYoutubeVideoResult } from '@/lib/ui/models/youtube-video-list.model';
+import VideoThumbnail from '@/lib/ui/components/video-thumbnail/video-thumbnail';
 
 export default function BrowserVideos() {
-    const [videoLinks, setVideoLinks] = useState(['PGdw29X129I']);
+    const [videoLinks, setVideoLinks] = useState<IYoutubeSearchItem[]>(SEARCHLIST_MOCK.items);
+    const [videoDetails, setVideoDetails] = useState<IYoutubeVideoResult[]>([]);
 
+    const getVideoDetail = (id: string | undefined): IYoutubeVideoItem | undefined => {
+        return videoDetails?.find((item) => item.items[0].id === id)?.items?.[0];
+    }
     return (
         <Fragment>
             <div className={styles.browseVideos}>
@@ -20,8 +27,10 @@ export default function BrowserVideos() {
                                 className={styles.videoPlayer}
                                 key={index}
                             >
-                                <VideoPlayer
-                                 videoId={videoLink}
+                                <VideoThumbnail
+                                 searchItem={videoLink}
+                                 isNowPlaying={false}
+                                 direction='horizontal'
                                 />
                             </div>
                         );
