@@ -15,7 +15,7 @@ export const MINI_SIDEBAR_NAV_ENDPOINTS: INavLink[] = [
   },
   {
     text: 'Liked videos',
-    url: 'liked',
+    url: 'likes',
     icon: 'thumb_up_off_alt',
     type: 'bottom',
   },

@@ -6,6 +6,7 @@ import { Fragment } from "react";
 import { SIDEBAR_NAV_ENDPOINTS } from "./left-sidebar.constants";
 import { INavLink } from "@/lib/ui/models/nav-link.model";
 import styles from './left-sidebar.module.scss';
+import Link from "next/link";
 
 export default function () {
     const endpointLinks: INavLink[] = SIDEBAR_NAV_ENDPOINTS;
@@ -29,15 +30,16 @@ export default function () {
 
                     {endpointLinks.map((endpoint, index) => {
                         return (
-                            <a
-                                key={index}
-                                className={styles['sidebar-endpoint']}
-                            >
-                                <div className={styles['sidebar-endpoint__icon']}>
-                                    <Icon>{endpoint?.icon}</Icon>
+                            <Link href={`/${endpoint.url}`} key={index}>
+                                <div
+                                    className={styles['sidebar-endpoint']}
+                                >
+                                    <div className={styles['sidebar-endpoint__icon']}>
+                                        <Icon>{endpoint?.icon}</Icon>
+                                    </div>
+                                    <div className={`mat-h3 ${styles['sidebar-endpoint__text']}`}>{endpoint?.text}</div>
                                 </div>
-                                <div className={`mat-h3 ${styles['sidebar-endpoint__text']}`}>{endpoint?.text}</div>
-                            </a>
+                            </Link>
                         );
                     })}
 

@@ -7,6 +7,7 @@ import { NAV_FEATURES } from "./nav-header.constants";
 import { AccountCircle, GridView, Lightbulb } from "@mui/icons-material";
 import LeftSidebar from "../left-sidebar/left-sidebar";
 import AccountSidebar from "../account-sidebar/account-sidebar";
+import Link from "next/link";
 
 type Anchor = 'left' | 'right';
 
@@ -65,10 +66,12 @@ export default function NavHeader() {
                             <AccountSidebar />
                         </Drawer>
 
-                        <div className={styles['header-brand-icon']}>
-                            <BrandIcon className={styles['brand-icon']} />
-                            <span className={styles['header-brand-icon__country-code']}>PL</span>
-                        </div>
+                        <Link href="/">
+                            <div className={styles['header-brand-icon']}>
+                                <BrandIcon className={styles['brand-icon']} />
+                                <span className={styles['header-brand-icon__country-code']}>PL</span>
+                            </div>
+                        </Link>
                     </div>
 
                     <div className={styles.header__center}>
