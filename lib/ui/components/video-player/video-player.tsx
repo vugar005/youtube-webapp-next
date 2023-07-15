@@ -27,7 +27,6 @@ export default function VideoPlayer(props: Props) {
         playerVars
     };
 
-    console.log(props)
     return (
         <Fragment>
             <YouTube
