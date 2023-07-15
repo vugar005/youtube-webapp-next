@@ -13,7 +13,7 @@ const initialState: AccountState = {
     likedVideoList: ['aubKbTYx804', 'G31l5knrVQo'],
     dislikedVideoList: [],
     isAuthenticated: false,
-    watchedVideos: [],
+    watchedVideos: ['aubKbTYx804', 'G31l5knrVQo'],
     isWatchHistoryEnabled: true,
 };
 
@@ -78,15 +78,26 @@ export const accountSlice = createSlice({
             };
         },
         toggleIsWatchHistoryEnabled(state, action) {
+            console.log(action);
             return {
                 ...state,
-                isWatchHistoryEnabled: action.payload.isActive,
+                isWatchHistoryEnabled: action.payload,
             };
         }
     }
 });
 
 export default accountSlice;
+
+export const {
+    login,
+    logout,
+    toggleLikeVideo,
+    toggleDislikeVideo,
+    toggleIsWatchHistoryEnabled,
+    addVideoToHistoryList,
+    clearWatchHistory
+  } = accountSlice.actions;
 
 export const selectLikedVideos = (state: RootState): string[] => state.account.likedVideoList;
 export const selectDislikedVideos = (state: RootState): string[] => state.account.dislikedVideoList;
