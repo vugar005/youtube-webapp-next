@@ -17,15 +17,17 @@ export const useSearchList = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/searchlist?q=${query}`);
       setData(response.data.items);
+      return response.data.items;
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(error);
       } else {
         throw (error);
       }
+    } finally {
+      setIsLoading(false);
     }
 
-    setIsLoading(false);
   }, []);
 
   return { fetchSeachItems, searchItems: data, isSearchItemsLoading: isLoading, searchItemsError: error };

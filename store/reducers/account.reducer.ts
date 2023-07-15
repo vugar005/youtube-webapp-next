@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "..";
 
 export interface AccountState {
     isAuthenticated: boolean;
@@ -9,7 +10,7 @@ export interface AccountState {
 }
 
 const initialState: AccountState = {
-    likedVideoList: [],
+    likedVideoList: ['aubKbTYx804', 'G31l5knrVQo'],
     dislikedVideoList: [],
     isAuthenticated: false,
     watchedVideos: [],
@@ -87,7 +88,7 @@ export const accountSlice = createSlice({
 
 export default accountSlice;
 
-export const selectLikedVideos = (state: AccountState): string[] => state.likedVideoList;
-export const selectDislikedVideos = (state: AccountState): string[] => state.dislikedVideoList;
-export const selectedWatchedVideos = (state: AccountState): string[] => state.watchedVideos;
-export const selectIsWatchHistoryEnabled = (state: AccountState): boolean => state.isWatchHistoryEnabled;
+export const selectLikedVideos = (state: RootState): string[] => state.account.likedVideoList;
+export const selectDislikedVideos = (state: RootState): string[] => state.account.dislikedVideoList;
+export const selectedWatchedVideos = (state: RootState): string[] => state.account.watchedVideos;
+export const selectIsWatchHistoryEnabled = (state: RootState): boolean => state.account.isWatchHistoryEnabled;

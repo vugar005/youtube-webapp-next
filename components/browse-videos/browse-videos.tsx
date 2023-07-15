@@ -37,6 +37,7 @@ export default function BrowserVideos() {
             <BrowseVideosError />
         );
     }
+    console.log(isSearchItemsLoading)
 
     if (!isSearchItemsLoading && !searchItemsError && !searchItems?.length) {
         return (
