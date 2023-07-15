@@ -20,6 +20,7 @@ export default function VideoThumbnail(props: Props) {
 
     const imageUrl = props.searchItem?.snippet?.thumbnails?.high?.url;
     const viewCount = props.videoDetail?.statistics?.viewCount;
+
     const isNowPlaying = props.isNowPlaying;
     const duration = props.videoDetail?.contentDetails?.duration;
 

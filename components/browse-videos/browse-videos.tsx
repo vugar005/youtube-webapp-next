@@ -1,21 +1,54 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import styles from './browse-videos.module.scss';
 import MiniSidebar from '../mini-sidebar/mini-sidebar';
-import { IYoutubeSearchItem } from '@/lib/ui/models/youtube-search-list.model';
-import { SEARCHLIST_MOCK } from '@/mocks/searchlist';
-import { IYoutubeVideoItem, IYoutubeVideoResult } from '@/lib/ui/models/youtube-video-list.model';
+import { IYoutubeVideoItem } from '@/lib/ui/models/youtube-video-list.model';
 import VideoThumbnail from '@/lib/ui/components/video-thumbnail/video-thumbnail';
 import { useAppSelector } from '@/store/hooks';
 import { selectSearchQuery } from '@/store/reducers/video.reducer';
+import { useSearchList } from '@/lib/ui/hooks/useSearchList';
+import { useVideoList } from '@/lib/ui/hooks/useVideoList';
+import BrowserVideosLoader from './browse-videos-loader/browse-videos-loader';
+import BrowseVideosEmpty from './browse-videos-empty/browse-videos-empty';
+import BrowseVideosError from './browse-videos-error/browse-videos-error';
 
 export default function BrowserVideos() {
-    const q = useAppSelector(selectSearchQuery);
-    console.log(q);
-    const [videoLinks, setVideoLinks] = useState<IYoutubeSearchItem[]>(SEARCHLIST_MOCK.items);
-    const [videoDetails, setVideoDetails] = useState<IYoutubeVideoResult[]>([]);
+
+    const searchQuery = useAppSelector(selectSearchQuery);
+    const { fetchSeachItems, searchItems, isSearchItemsLoading, searchItemsError } = useSearchList();
+
+    const videoIds = searchItems?.map((item) => item.id?.videoId).join(',');
+
+    const { fetchVideoItems, videoItems } = useVideoList();
 
     const getVideoDetail = (id: string | undefined): IYoutubeVideoItem | undefined => {
-        return videoDetails?.find((item) => item.items[0].id === id)?.items?.[0];
+        return videoItems?.find((videoItem) => videoItem.items[0].id === id)?.items?.[0];
+    }
+
+    useEffect(() => {
+        fetchSeachItems({ query: searchQuery })
+    }, [searchQuery]);
+
+    useEffect(() => {
+        fetchVideoItems({ id: videoIds })
+    }, [videoIds]);
+
+    if (searchItemsError) {
+        return (
+            <BrowseVideosError />
+        );
+    }
+
+    if (!isSearchItemsLoading && !searchItemsError && !searchItems?.length) {
+        return (
+            <BrowseVideosEmpty />
+        );
+    }
+
+
+    if (isSearchItemsLoading) {
+        return (
+            <BrowserVideosLoader />
+        );
     }
 
     return (
@@ -26,16 +59,17 @@ export default function BrowserVideos() {
                 </div>
 
                 <div className={styles.browseVideosList}>
-                    {videoLinks.map((videoLink, index) => {
+                    {searchItems?.map((searchItem, index) => {
                         return (
                             <div
                                 className={styles.videoPlayer}
                                 key={index}
                             >
                                 <VideoThumbnail
-                                 searchItem={videoLink}
-                                 isNowPlaying={false}
-                                 direction='horizontal'
+                                    searchItem={searchItem}
+                                    videoDetail={getVideoDetail(searchItem.id?.videoId)}
+                                    isNowPlaying={false}
+                                    direction='horizontal'
                                 />
                             </div>
                         );
