@@ -25,6 +25,7 @@ export default function WatchVideoCard(props: Props) {
     const likedVideos = useAppSelector(selectLikedVideos);
     const dislikedVideos = useAppSelector(selectDislikedVideos);
 
+    console.log(videoResult?.snippet?.tags)
     const isLiked = (): boolean => {
         if (!videoId) { return false; }
         return likedVideos?.includes(videoId);
@@ -63,7 +64,7 @@ export default function WatchVideoCard(props: Props) {
                     {
                         videoResult?.snippet?.tags?.length ?
                             <div className={styles.videoDetailsTags}>
-                                {videoResult.snippet.tags.map((tag, tagIndex) => {
+                                {videoResult.snippet.tags?.slice(0, 3).map((tag, tagIndex) => {
                                     return (
                                         <div className={`${styles.videoDetailsTag} mat-subtitle-2`} key={tagIndex}>
                                             #{tag}
