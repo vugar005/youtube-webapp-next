@@ -10,6 +10,7 @@ import { useVideoList } from '@/lib/ui/hooks/useVideoList';
 import BrowserVideosLoader from './browse-videos-loader/browse-videos-loader';
 import BrowseVideosEmpty from './browse-videos-empty/browse-videos-empty';
 import BrowseVideosError from './browse-videos-error/browse-videos-error';
+import Link from 'next/link';
 
 export default function BrowserVideos() {
 
@@ -66,12 +67,15 @@ export default function BrowserVideos() {
                                 className={styles.videoPlayer}
                                 key={index}
                             >
-                                <VideoThumbnail
-                                    searchItem={searchItem}
-                                    videoDetail={getVideoDetail(searchItem.id?.videoId)}
-                                    isNowPlaying={false}
-                                    direction='horizontal'
-                                />
+
+                                <Link href={`/watch?v=${searchItem.id?.videoId}`}>
+                                    <VideoThumbnail
+                                        searchItem={searchItem}
+                                        videoDetail={getVideoDetail(searchItem.id?.videoId)}
+                                        isNowPlaying={false}
+                                        direction='horizontal'
+                                    />
+                                </Link>
                             </div>
                         );
                     })}
