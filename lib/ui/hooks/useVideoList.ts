@@ -11,7 +11,7 @@ export const useVideoList = () => {
 
     const fetchVideoItems = useCallback(async (params: IYoutubeVideoListParams) => {
         const { id } = params;
-        if (!id) {
+        if (!id || id === 'undefined') {
             return;
         }
         setIsLoading(true);

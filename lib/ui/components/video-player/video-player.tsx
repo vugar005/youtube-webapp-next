@@ -14,8 +14,8 @@ interface Props {
 }
 
 export default function VideoPlayer(props: Props) {
-    const width = props.width;
-    const height = props.height || 170;
+    const width = props.width || '100%';
+    const height = props.height || '100%';
     const playerVars = props.playerVars || {
         showinfo: 0,
         modestbranding: 0
@@ -26,6 +26,8 @@ export default function VideoPlayer(props: Props) {
         height,
         playerVars
     };
+
+    console.log(opts)
 
     return (
         <Fragment>
