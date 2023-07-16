@@ -30,7 +30,7 @@ export default function WatchVideo() {
                         <WatchVideoCard videoId={videoId} startSeconds={startSeconds} videoResult={videoInfo} />
                     </div>
                     <div className={styles.relatedVideosWrapper}>
-                        <RelatedVideos />
+                        <RelatedVideos query={videoInfo?.snippet?.channelTitle} />
                     </div>
                 </div>
             </div>
