@@ -20,11 +20,9 @@ export default function WatchVideo() {
         fetchVideoItems({ id: videoId});
     }, [videoId]);
 
-    console.log(videoItems);
-
     return (
         <Fragment>
-            <div className="host">
+            <div className={styles.host}>
                 <div className={styles.watchVideo}>
                     <div className={styles.videoCardWrapper}>
                         <WatchVideoCard videoId={videoId} startSeconds={startSeconds} videoResult={videoInfo} />

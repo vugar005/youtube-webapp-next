@@ -9,6 +9,8 @@ interface Props {
     query?: string;
 }
 export default function RelatedVideos(props: Props) {
+    const loaderItems = new Array(5).fill('item');
+
     const { query } = props;
     const { fetchSeachItems, searchItems, isSearchItemsLoading } = useSearchList();
 
@@ -19,23 +21,29 @@ export default function RelatedVideos(props: Props) {
 
     if (isSearchItemsLoading) {
         return (
-            <div className={styles.videoCardLoader}>
-                <VideoThumbnailLoader direction="horizontal" />
+            <div className={styles.videoList}>
+                {
+                    loaderItems?.map((item, loaderIndex) => {
+                        return (
+                            <div className={styles.thumbnailLoaderTemplate} key={loaderIndex}>
+                                <VideoThumbnailLoader direction="vertical" />
+                            </div>
+                        );
+                    })
+                }
             </div>
         );
     }
 
     return (
         <Fragment>
-            <div className="host">
+            <div className={styles.host}>
                 <div className={styles.videoList}>
                     {searchItems?.map((video, videoIndex) => {
                         return (
-                            <Link href={`/watch?v=${video.id?.videoId}`}>
-
+                            <Link href={`/watch?v=${video.id?.videoId}`} key={videoIndex}>
                                 <div
                                     className={styles.videoItem}
-                                    key={videoIndex}
                                 >
                                     <div className={styles.videoItem__thumbnail}>
                                         <VideoThumbnail searchItem={video} direction="vertical" />

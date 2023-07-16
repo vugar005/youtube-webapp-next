@@ -7,8 +7,8 @@ import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
 import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
 import { ytdAbbreviateNumber } from "@/lib/ui/pipes/abbreviate-number/abbreviate-number.pipe";
 import { Button, Divider } from "@mui/material";
-import { useAppSelector } from "@/store/hooks";
-import { selectDislikedVideos, selectLikedVideos } from "@/store/reducers/account.reducer";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectDislikedVideos, selectLikedVideos, toggleDislikeVideo, toggleLikeVideo } from "@/store/reducers/account.reducer";
 import VideoPlayer from "@/lib/ui/components/video-player/video-player";
 import VideoCardSecondaryInfo from "../video-card-secondary-info/video-card-secondary-info";
 import VideoThumbnailLoader from "@/lib/ui/components/video-thumbnail-loader/video-thumbnail-loader";
@@ -19,6 +19,8 @@ interface Props {
     videoResult: IYoutubeVideoItem | undefined;
 }
 export default function WatchVideoCard(props: Props) {
+    const dispatch = useAppDispatch();
+
     const { videoId, startSeconds, videoResult } = props;
     const likedVideos = useAppSelector(selectLikedVideos);
     const dislikedVideos = useAppSelector(selectDislikedVideos);
@@ -33,11 +35,19 @@ export default function WatchVideoCard(props: Props) {
         return dislikedVideos?.includes(videoId);
     }
 
-    if(!videoResult?.snippet?.title) {
-        return(
+    const onToggleLike = (): void => {
+        dispatch(toggleLikeVideo({ videoId }))
+    }
+
+    const onToggleDisLike = (): void => {
+        dispatch(toggleDislikeVideo({ videoId }))
+    }
+
+    if (!videoResult?.snippet?.title) {
+        return (
             <div className={styles.videoCardLoader}>
-             <VideoThumbnailLoader direction="horizontal"/>
-          </div>
+                <VideoThumbnailLoader direction="horizontal" />
+            </div>
         );
     }
 
@@ -53,9 +63,9 @@ export default function WatchVideoCard(props: Props) {
                     {
                         videoResult?.snippet?.tags?.length ?
                             <div className={styles.videoDetailsTags}>
-                                {videoResult.snippet.tags.map(tag => {
+                                {videoResult.snippet.tags.map((tag, tagIndex) => {
                                     return (
-                                        <div className={`${styles.videoDetailsTag} mat-subtitle-2`}>
+                                        <div className={`${styles.videoDetailsTag} mat-subtitle-2`} key={tagIndex}>
                                             #{tag}
                                         </div>
                                     );
@@ -73,7 +83,7 @@ export default function WatchVideoCard(props: Props) {
                         </div>
 
                         <div className={styles.videoDetailsActions}>
-                            <Button className={styles.videoDetailsActions__item}>
+                            <Button className={styles.videoDetailsActions__item} onClick={onToggleLike}>
                                 {isLiked() && <ThumbUpOffAltIcon className={styles.videoDetailsActions__item__icon} />}
                                 {!isLiked() && <ThumbUpIcon className={styles.videoDetailsActions__item__icon} />}
 
@@ -84,7 +94,7 @@ export default function WatchVideoCard(props: Props) {
 
                             </Button>
 
-                            <Button className={styles.videoDetailsActions__item}>
+                            <Button className={styles.videoDetailsActions__item} onClick={onToggleDisLike}>
                                 {isDisliked() && <ThumbDown className={styles.videoDetailsActions__item__icon} />}
                                 {!isDisliked() && <ThumbDownOffAltIcon className={styles.videoDetailsActions__item__icon} />}
 
