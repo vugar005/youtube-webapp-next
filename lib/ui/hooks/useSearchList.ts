@@ -11,6 +11,7 @@ export const useSearchList = () => {
 
   const fetchSeachItems = useCallback(async (params: IYoutubeSearchParams) => {
     const { query } = params
+    if(!query) { return;}
     setIsLoading(true);
     setError(null);
 

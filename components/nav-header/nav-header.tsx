@@ -8,9 +8,9 @@ import { AccountCircle, GridView, Lightbulb } from "@mui/icons-material";
 import LeftSidebar from "../left-sidebar/left-sidebar";
 import AccountSidebar from "../account-sidebar/account-sidebar";
 import Link from "next/link";
+import SearchBox from "@/lib/ui/components/search-box/search-box";
 
 type Anchor = 'left' | 'right';
-
 
 export default function NavHeader() {
     const [featureAnchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -75,6 +75,7 @@ export default function NavHeader() {
                     </div>
 
                     <div className={styles.header__center}>
+                        <SearchBox />
                     </div>
 
                     <div className={styles.header__end}>
