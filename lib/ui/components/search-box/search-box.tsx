@@ -4,9 +4,10 @@ import TextField from "@mui/material/TextField";
 import { useEffect, useRef, useState } from 'react';
 import { useSearchList } from '../../hooks/useSearchList';
 import { Subject, from } from 'rxjs';
-import { debounceTime, switchMap, tap } from 'rxjs/operators';
+import { debounceTime, switchMap } from 'rxjs/operators';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useRouter } from 'next/router';
+import { IYoutubeSearchItem } from '../../models/youtube-search-list.model';
 
 interface Props {
     debouncePeriod?: number;
@@ -16,9 +17,9 @@ export default function SearchBox(props: Props) {
     const router = useRouter();
     const { placeholder, debouncePeriod = 300 } = props;
     const [inputValue, setInputValue] = useState('');
+    const [options, setOptions] = useState<string[]>([]);
     const [value, setValue] = useState<string | null>('');
-    const { fetchSeachItems, searchItems } = useSearchList();
-    const options: string[] = searchItems?.map((item) => item.snippet?.title) || [];
+    const { fetchSeachItems, searchItems, isSearchItemsLoading } = useSearchList();
     const optionSelected$ = useRef(new Subject<string>());
 
     useEffect(() => {
@@ -27,8 +28,10 @@ export default function SearchBox(props: Props) {
                 debounceTime(debouncePeriod),
                 switchMap((val) => from(fetchSeachItems({ query: val })))
             )
-            .subscribe((data) => {
-                console.log('SEARCH_DATA', data);
+            .subscribe((data: IYoutubeSearchItem[]) => {
+                const items = data?.map((item) => item.snippet?.title) || [];
+                setOptions(items);
+                console.log('SEARCH_DATA');
             });
 
         return () => sub?.unsubscribe();
@@ -55,6 +58,8 @@ export default function SearchBox(props: Props) {
                         freeSolo
                         options={options}
                         value={value}
+                        loading={isSearchItemsLoading}
+                        filterOptions={(x) => x}
                         sx={{ height: '100%', fontSize: '1.4rem' }}
                         onChange={(event: any, newValue: string | null) => {
                             setValue(newValue);
