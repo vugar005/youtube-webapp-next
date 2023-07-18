@@ -9,12 +9,16 @@ import LeftSidebar from "../left-sidebar/left-sidebar";
 import AccountSidebar from "../account-sidebar/account-sidebar";
 import Link from "next/link";
 import SearchBox from "@/lib/ui/components/search-box/search-box";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { AppTheme, selectSettingsTheme, setTheme } from "@/store/reducers/settings.reducer";
 
 type Anchor = 'left' | 'right';
 
 export default function NavHeader() {
-    const [featureAnchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const dispatch = useAppDispatch();
+    const theme = useAppSelector(selectSettingsTheme);
 
+    const [featureAnchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [isSidenavOpen, setSidenavOpen] = useState({
         left: false,
         right: false
@@ -33,6 +37,14 @@ export default function NavHeader() {
 
     const toggleDrawer = (anchor: Anchor, open: boolean) => () => {
         setSidenavOpen({ ...isSidenavOpen, [anchor]: open });
+    };
+
+    const onChageTheme = () => {
+        if (theme === AppTheme.DARK) {
+            dispatch(setTheme({ theme: AppTheme.LIGHT }))
+        } else {
+            dispatch(setTheme({ theme: AppTheme.DARK }))
+        }
     };
 
     return (
@@ -130,7 +142,7 @@ export default function NavHeader() {
                         </div>
 
                         <div className={styles['header-feature']}>
-                            <IconButton className={styles['header-nav-icon__btn']}>
+                            <IconButton className={styles['header-nav-icon__btn']} onClick={onChageTheme}>
                                 <Lightbulb />
                             </IconButton>
                         </div>

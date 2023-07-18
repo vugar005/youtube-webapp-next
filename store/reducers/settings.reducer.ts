@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "..";
 
 export enum AppTheme {
     LIGHT = 'light-theme',
@@ -10,7 +11,7 @@ export interface SettingsState {
 }
 
 const initialState: SettingsState = {
-    theme: AppTheme.DARK,
+    theme: AppTheme.LIGHT,
 };
 
 export const settingsSlice = createSlice({
@@ -28,4 +29,6 @@ export const settingsSlice = createSlice({
 
 export default settingsSlice;
 
-export const selectSettingsTheme = (state: SettingsState): AppTheme => state.theme;
+export const { setTheme } = settingsSlice.actions;
+
+export const selectSettingsTheme = (state: RootState): AppTheme => state.settings?.theme;
