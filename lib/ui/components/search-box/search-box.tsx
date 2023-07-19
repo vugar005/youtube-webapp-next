@@ -31,7 +31,6 @@ export default function SearchBox(props: Props) {
             .subscribe((data: IYoutubeSearchItem[]) => {
                 const items = data?.map((item) => item.snippet?.title) || [];
                 setOptions(items);
-                console.log('SEARCH_DATA');
             });
 
         return () => sub?.unsubscribe();

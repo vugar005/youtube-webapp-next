@@ -31,8 +31,6 @@ export default function HistoryPage() {
     }
 
     function getWatchedVideos(videoIds: string[] | undefined): void {
-        console.log('videoIds', videoIds)
-
         setWatchedVideos([]);
         setisLoading(true);
         if (!videoIds?.length) {

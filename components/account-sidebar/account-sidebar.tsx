@@ -5,7 +5,6 @@ import { Divider } from "@mui/material";
 import packageJson from '../../package.json';
 
 export default function AccountSidebar() {
-    console.log(packageJson);
     const nextVersion = packageJson.dependencies.next;
 
     return (

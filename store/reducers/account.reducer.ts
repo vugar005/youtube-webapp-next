@@ -78,7 +78,6 @@ export const accountSlice = createSlice({
             };
         },
         toggleIsWatchHistoryEnabled(state, action) {
-            console.log(action);
             return {
                 ...state,
                 isWatchHistoryEnabled: action.payload,

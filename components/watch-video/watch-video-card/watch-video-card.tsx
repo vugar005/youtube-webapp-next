@@ -33,7 +33,6 @@ export default function WatchVideoCard(props: Props) {
         setVideoUrl(url);
     }, [videoId]);
 
-    console.log(videoResult?.snippet?.tags)
     const isLiked = (): boolean => {
         if (!videoId) { return false; }
         return likedVideos?.includes(videoId);

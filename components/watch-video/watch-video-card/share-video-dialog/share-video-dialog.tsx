@@ -23,7 +23,6 @@ export default function ShareVideoDialog(props: Props) {
     const onCopyUrl = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(videoUrl);
-            console.log('Video URL copied to clipboard');
         } catch (err) {
             console.log('Failed to copy: ', err);
         }
