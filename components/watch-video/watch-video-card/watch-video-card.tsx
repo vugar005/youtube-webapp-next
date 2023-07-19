@@ -1,5 +1,5 @@
 import { IYoutubeVideoItem } from "@/lib/ui/models/youtube-video-list.model";
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import styles from './watch-video-card.module.scss';
 import { PictureInPictureAlt, Share, ThumbDown } from "@mui/icons-material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -12,6 +12,7 @@ import { selectDislikedVideos, selectLikedVideos, toggleDislikeVideo, toggleLike
 import VideoPlayer from "@/lib/ui/components/video-player/video-player";
 import VideoCardSecondaryInfo from "../video-card-secondary-info/video-card-secondary-info";
 import VideoThumbnailLoader from "@/lib/ui/components/video-thumbnail-loader/video-thumbnail-loader";
+import ShareVideoDialog from "./share-video-dialog/share-video-dialog";
 
 interface Props {
     videoId: string | undefined;
@@ -20,10 +21,17 @@ interface Props {
 }
 export default function WatchVideoCard(props: Props) {
     const dispatch = useAppDispatch();
+    const [isShareDialogOpen, setIsShareDialogOpen] = useState<boolean>(false);
+    const [videoUrl, setVideoUrl] = useState<string>('');
 
     const { videoId, startSeconds, videoResult } = props;
     const likedVideos = useAppSelector(selectLikedVideos);
     const dislikedVideos = useAppSelector(selectDislikedVideos);
+
+    useEffect(() => {
+        const url = `${location.host}/watch?v=${videoId}`;
+        setVideoUrl(url);
+    }, [videoId]);
 
     console.log(videoResult?.snippet?.tags)
     const isLiked = (): boolean => {
@@ -107,7 +115,7 @@ export default function WatchVideoCard(props: Props) {
 
                             </Button>
 
-                            <Button className={styles.videoDetailsActions__item}>
+                            <Button className={styles.videoDetailsActions__item} onClick={() => setIsShareDialogOpen(true)}>
                                 {<Share className={styles.videoDetailsActions__item__icon} />}
 
                                 <p className={`${styles.videoDetailsActions__item__text} mat-h3`}
@@ -116,6 +124,13 @@ export default function WatchVideoCard(props: Props) {
                                 </p>
 
                             </Button>
+
+                            <ShareVideoDialog
+                                open={isShareDialogOpen}
+                                handleClose={() => setIsShareDialogOpen(false)}
+                                currenVideoTime={0}
+                                videoUrl={videoUrl}
+                            />
 
                             <Button className={styles.videoDetailsActions__item}>
                                 {<PictureInPictureAlt className={`${styles.videoDetailsActions__item__icon} flash`} />}
