@@ -29,7 +29,7 @@ export const useSearchList = () => {
       setIsLoading(false);
     }
 
-  }, []);
+  }, [API_BASE_URL]);
 
   return { fetchSeachItems, searchItems: data, isSearchItemsLoading: isLoading, searchItemsError: error };
 };

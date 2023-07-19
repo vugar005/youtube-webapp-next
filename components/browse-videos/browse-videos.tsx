@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useCallback, useEffect } from 'react';
 import styles from './browse-videos.module.scss';
 import MiniSidebar from '../mini-sidebar/mini-sidebar';
 import { IYoutubeVideoItem } from '@/lib/ui/models/youtube-video-list.model';
@@ -21,11 +21,12 @@ export default function BrowserVideos() {
 
     const { fetchVideoItems, videoItems } = useVideoList();
 
-    const getVideoDetail = (id: string | undefined): IYoutubeVideoItem | undefined => {
+    const getVideoDetail = useCallback((id: string | undefined): IYoutubeVideoItem | undefined => {
         return videoItems?.find((videoItem) => videoItem.items[0].id === id)?.items?.[0];
-    }
+    }, [videoItems])
 
     useEffect(() => {
+        console.log(fetchSeachItems);
         fetchSeachItems({ query: searchQuery })
     }, [searchQuery]);
 

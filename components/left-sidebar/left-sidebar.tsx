@@ -8,7 +8,7 @@ import { INavLink } from "@/lib/ui/models/nav-link.model";
 import styles from './left-sidebar.module.scss';
 import Link from "next/link";
 
-export default function () {
+export default function LeftSidebar() {
     const endpointLinks: INavLink[] = SIDEBAR_NAV_ENDPOINTS;
 
     return (

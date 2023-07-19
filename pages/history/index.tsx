@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import styles from './index.module.scss';
 import { Delete, DeleteOutline, Pause, Replay } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -30,7 +30,7 @@ export default function HistoryPage() {
         dispatch(toggleIsWatchHistoryEnabled(enable))
     }
 
-    function getWatchedVideos(videoIds: string[] | undefined): void {
+    const getWatchedVideos =  useCallback((videoIds: string[] | undefined): void => {
         setWatchedVideos([]);
         setisLoading(true);
         if (!videoIds?.length) {
@@ -56,7 +56,7 @@ export default function HistoryPage() {
             .subscribe((data: IYoutubeSearchItem[]) => {
                 setWatchedVideos(data);
             });
-    }
+    }, [watchedVideoIds])
 
     useEffect(() => {
         getWatchedVideos(watchedVideoIds);

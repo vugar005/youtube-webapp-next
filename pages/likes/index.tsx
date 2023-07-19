@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useCallback, useEffect, useState } from "react";
 import styles from './index.module.scss';
 import { useAppSelector } from "@/store/hooks";
 import { selectLikedVideos } from "@/store/reducers/account.reducer";
@@ -15,7 +15,7 @@ export default function Likes() {
 
     const [likedVideos, setLikedVideos] = useState<IYoutubeSearchItem[]>([]);
 
-    function getLikedVideosInfo(videoIds: string[]): void {
+    const getLikedVideosInfo = useCallback((videoIds: string[]): void => {
         const reqArray: Observable<IYoutubeSearchItem>[] = [];
         videoIds?.forEach((id: string) => {
             const videoRequest = from(fetchSeachItems({ query: id })).pipe(
@@ -30,7 +30,7 @@ export default function Likes() {
             .subscribe((data: IYoutubeSearchItem[]) => {
                 setLikedVideos(data);
             });
-    }
+    }, [videoIds])
 
     useEffect(() => {
         getLikedVideosInfo(videoIds);

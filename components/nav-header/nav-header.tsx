@@ -1,5 +1,6 @@
 import { Drawer, IconButton, Popover } from "@mui/material";
 import { Fragment, useState } from "react";
+import Image from "next/image";
 import MenuIcon from '@mui/icons-material/Menu';
 import BrandIcon from "@/lib/ui/components/brand-icon";
 import styles from './nav-header.module.scss';
@@ -122,7 +123,13 @@ export default function NavHeader() {
                                                         target="_blank"
                                                     >
                                                         <div className='app-item__image'>
-                                                            <img src={feature.imgSrc} alt={feature.imgAlt} />
+
+                                                            <Image
+                                                                src={feature.imgSrc}
+                                                                alt={feature.imgAlt}
+                                                                fill
+                                                                sizes="(min-width: 0) 100%, 100%"
+                                                            />
                                                         </div>
 
                                                         <div

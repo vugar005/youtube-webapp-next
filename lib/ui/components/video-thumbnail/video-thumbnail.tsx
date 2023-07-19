@@ -5,6 +5,7 @@ import { IYoutubeVideoItem } from "../../models/youtube-video-list.model";
 import { ytdAbbreviateNumber } from "../../pipes/abbreviate-number/abbreviate-number.pipe";
 import { ytdTimeAgo } from "../../pipes/time-ago/time-ago.pipe";
 import classNames from 'classnames';
+import Image from "next/image";
 
 interface Props {
     searchItem?: IYoutubeSearchItem;
@@ -37,11 +38,16 @@ export default function VideoThumbnail(props: Props) {
                 >
                     <div className={styles.thumbnail__image}>
                         {imageUrl &&
-                            <img src={imageUrl} alt="Video image" />
+                            <Image
+                                src={imageUrl}
+                                alt="Video image"
+                                fill
+                                sizes="(min-width: 0) 100%, 100%"
+                            />
                         }
 
                         <div className={styles.thumbnail__image__duration} >
-                            { duration }
+                            {duration}
                         </div>
 
                         <div className={styles.imageBackdrop}></div>
@@ -78,7 +84,7 @@ export default function VideoThumbnail(props: Props) {
                                     {viewCount && <span>
                                         {ytdAbbreviateNumber(viewCount)} views •
                                     </span>
-                                   }
+                                    }
 
                                     {ytdTimeAgo(props.searchItem?.snippet?.publishedAt)}
                                 </p>
