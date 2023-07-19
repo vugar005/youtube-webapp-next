@@ -1,5 +1,5 @@
-import { Fragment } from "react";
-import YouTube from "react-youtube";
+import { Fragment, useCallback, useState } from "react";
+import YouTube, { YouTubeEvent } from "react-youtube";
 import styles from './video-player.module.scss';
 
 interface Props {
@@ -14,6 +14,8 @@ interface Props {
 }
 
 export default function VideoPlayer(props: Props) {
+    const [playerRef, setPlayerRef] = useState<any>(null);
+
     const width = props.width || '100%';
     const height = props.height || '100%';
     const playerVars = props.playerVars || {
@@ -27,12 +29,19 @@ export default function VideoPlayer(props: Props) {
         playerVars
     };
 
+    const onReadyHandler = useCallback((event: YouTubeEvent<any>) => {
+        const playerRef = event.target;
+        setPlayerRef(playerRef);
+        event.target?.playVideo();
+    }, []);
+
     return (
         <Fragment>
             <YouTube
                 videoId={props.videoId}
                 className={styles.videoPlayer}
                 opts={opts}
+                onReady={onReadyHandler}
             />
         </Fragment>
     );
