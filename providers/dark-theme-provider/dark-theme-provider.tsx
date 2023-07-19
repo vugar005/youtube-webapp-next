@@ -1,4 +1,4 @@
-import { getTheme } from "@/pages/theme";
+import { getTheme } from "@/styles/theme";
 import { useAppSelector } from "@/store/hooks";
 import { AppTheme, selectSettingsTheme } from "@/store/reducers/settings.reducer";
 import { ThemeProvider, Theme } from '@mui/material/styles';
