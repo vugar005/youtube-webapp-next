@@ -26,7 +26,6 @@ export default function BrowserVideos() {
     }, [videoItems])
 
     useEffect(() => {
-        console.log(fetchSeachItems);
         fetchSeachItems({ query: searchQuery })
     }, [searchQuery]);
 

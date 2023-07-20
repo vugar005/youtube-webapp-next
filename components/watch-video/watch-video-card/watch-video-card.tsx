@@ -27,6 +27,9 @@ export default function WatchVideoCard(props: Props) {
     const { videoId, startSeconds, videoResult } = props;
     const likedVideos = useAppSelector(selectLikedVideos);
     const dislikedVideos = useAppSelector(selectDislikedVideos);
+    const buttonStyles = {
+        color: 'var(--yt-spec-text-primary)'
+    };
 
     useEffect(() => {
         const url = `${location.host}/watch?v=${videoId}`;
@@ -91,7 +94,7 @@ export default function WatchVideoCard(props: Props) {
                         </div>
 
                         <div className={styles.videoDetailsActions}>
-                            <Button className={styles.videoDetailsActions__item} onClick={onToggleLike}>
+                            <Button sx={buttonStyles} className={styles.videoDetailsActions__item} onClick={onToggleLike}>
                                 {isLiked() && <ThumbUpOffAltIcon className={styles.videoDetailsActions__item__icon} />}
                                 {!isLiked() && <ThumbUpIcon className={styles.videoDetailsActions__item__icon} />}
 
@@ -102,7 +105,7 @@ export default function WatchVideoCard(props: Props) {
 
                             </Button>
 
-                            <Button className={styles.videoDetailsActions__item} onClick={onToggleDisLike}>
+                            <Button sx={buttonStyles} className={styles.videoDetailsActions__item} onClick={onToggleDisLike}>
                                 {isDisliked() && <ThumbDown className={styles.videoDetailsActions__item__icon} />}
                                 {!isDisliked() && <ThumbDownOffAltIcon className={styles.videoDetailsActions__item__icon} />}
 
@@ -114,7 +117,7 @@ export default function WatchVideoCard(props: Props) {
 
                             </Button>
 
-                            <Button className={styles.videoDetailsActions__item} onClick={() => setIsShareDialogOpen(true)}>
+                            <Button sx={buttonStyles} className={styles.videoDetailsActions__item} onClick={() => setIsShareDialogOpen(true)}>
                                 {<Share className={styles.videoDetailsActions__item__icon} />}
 
                                 <p className={`${styles.videoDetailsActions__item__text} mat-h3`}
@@ -131,7 +134,7 @@ export default function WatchVideoCard(props: Props) {
                                 videoUrl={videoUrl}
                             />
 
-                            <Button className={styles.videoDetailsActions__item}>
+                            <Button sx={buttonStyles}  className={styles.videoDetailsActions__item}>
                                 {<PictureInPictureAlt className={`${styles.videoDetailsActions__item__icon} flash`} />}
 
                                 <p className={`${styles.videoDetailsActions__item__text} mat-h3`}

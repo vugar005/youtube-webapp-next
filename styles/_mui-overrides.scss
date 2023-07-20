@@ -19,10 +19,12 @@
       margin: 12px;
       font-size: 12px;
       cursor: pointer;
+
       &__image {
         width: 36px;
         height: 36px;
         margin-bottom: 7px;
+        position: relative;
         img {
           width: 100%;
           height: 100%;
