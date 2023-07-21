@@ -48,7 +48,11 @@ export const videoSlice = createSlice({
     }
 });
 
-export const videoActions = videoSlice.actions;
+export const {
+    setVideoSearchQuery,
+    setIsMiniPlayerMode,
+    setMiniPlayerVideo
+} = videoSlice.actions;
 
 export const selectSearchQuery = (state: RootState): string => state.video.searchQuery;
 export const selectVideoIsMiniPlayerMode = (state: RootState): boolean => state.video.isMiniPlayerEnabled;

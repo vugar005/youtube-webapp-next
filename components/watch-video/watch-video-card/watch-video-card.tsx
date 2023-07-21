@@ -13,6 +13,7 @@ import VideoPlayer from "@/lib/ui/components/video-player/video-player";
 import VideoCardSecondaryInfo from "../video-card-secondary-info/video-card-secondary-info";
 import VideoThumbnailLoader from "@/lib/ui/components/video-thumbnail-loader/video-thumbnail-loader";
 import ShareVideoDialog from "./share-video-dialog/share-video-dialog";
+import { setIsMiniPlayerMode, setMiniPlayerVideo } from "@/store/reducers/video.reducer";
 
 interface Props {
     videoId: string | undefined;
@@ -52,6 +53,11 @@ export default function WatchVideoCard(props: Props) {
 
     const onToggleDisLike = (): void => {
         dispatch(toggleDislikeVideo({ videoId }))
+    }
+
+    const onMiniPLayerMode = (): void => {
+        dispatch(setMiniPlayerVideo({ videoId: videoId, startSeconds: 0}));
+        dispatch(setIsMiniPlayerMode(true));
     }
 
     if (!videoResult?.snippet?.title) {
@@ -134,7 +140,7 @@ export default function WatchVideoCard(props: Props) {
                                 videoUrl={videoUrl}
                             />
 
-                            <Button sx={buttonStyles}  className={styles.videoDetailsActions__item}>
+                            <Button sx={buttonStyles}  className={styles.videoDetailsActions__item} onClick={onMiniPLayerMode}>
                                 {<PictureInPictureAlt className={`${styles.videoDetailsActions__item__icon} flash`} />}
 
                                 <p className={`${styles.videoDetailsActions__item__text} mat-h3`}
