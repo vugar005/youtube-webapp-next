@@ -14,6 +14,7 @@ import VideoCardSecondaryInfo from "../video-card-secondary-info/video-card-seco
 import VideoThumbnailLoader from "@/lib/ui/components/video-thumbnail-loader/video-thumbnail-loader";
 import ShareVideoDialog from "./share-video-dialog/share-video-dialog";
 import { setIsMiniPlayerMode, setMiniPlayerVideo } from "@/store/reducers/video.reducer";
+import { useRouter } from "next/router";
 
 interface Props {
     videoId: string | undefined;
@@ -21,6 +22,7 @@ interface Props {
     videoResult: IYoutubeVideoItem | undefined;
 }
 export default function WatchVideoCard(props: Props) {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const [isShareDialogOpen, setIsShareDialogOpen] = useState<boolean>(false);
     const [videoUrl, setVideoUrl] = useState<string>('');
@@ -58,6 +60,10 @@ export default function WatchVideoCard(props: Props) {
     const onMiniPLayerMode = (): void => {
         dispatch(setMiniPlayerVideo({ videoId: videoId, startSeconds: 0}));
         dispatch(setIsMiniPlayerMode(true));
+
+        router.push({
+            pathname: '/'
+        });
     }
 
     if (!videoResult?.snippet?.title) {
