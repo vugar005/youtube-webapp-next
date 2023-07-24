@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useDebugValue } from 'react';
 import axios, { AxiosError } from 'axios';
 import { API_BASE_URL } from '@/app.constants';
 import { IYoutubeSearchItem } from '../models/youtube-search-list.model';
@@ -8,6 +8,8 @@ export const useSearchList = () => {
   const [data, setData] = useState<IYoutubeSearchItem[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<AxiosError | null>(null);
+
+  useDebugValue(data);
 
   const fetchSeachItems = useCallback(async (params: IYoutubeSearchParams) => {
     const { query } = params

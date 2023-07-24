@@ -17,7 +17,7 @@ interface Props {
 
 export default function VideoPlayer(props: Props) {
     const [playerRef, setPlayerRef] = useState<any>(null);
-
+    const { onReady, onStateChange } = props;
     const width = props.width || '100%';
     const height = props.height || '100%';
     const playerVars = props.playerVars || {
@@ -31,23 +31,26 @@ export default function VideoPlayer(props: Props) {
         playerVars
     };
 
-    const onReady = useCallback((event: YouTubeEvent<any>) => {
+    const onReadyHandler = useCallback((event: YouTubeEvent<any>) => {
+        console.log('onReadyHandler')
         const videPlayerRef: YouTubePlayer = event.target;
         setPlayerRef(videPlayerRef);
         videPlayerRef?.playVideo();
 
-        if (props.onReady) {
-            props.onReady(videPlayerRef);
+        if (onReady) {
+            onReady(videPlayerRef);
         }
 
-    }, [props.onReady]);
+    }, [onReady]);
 
-    const onStateChange = useCallback((event: YouTubeEvent<any>) => {
-        if (props.onStateChange) {
-            props.onStateChange(event);
+    const onStateChangeHandler = useCallback((event: YouTubeEvent<any>) => {
+        console.log('onStateChangeHandler')
+
+        if (onStateChange) {
+            onStateChange(event);
         }
 
-    }, [props.onStateChange]);
+    }, [onStateChange]);
 
     return (
         <Fragment>
@@ -55,8 +58,8 @@ export default function VideoPlayer(props: Props) {
                 videoId={props.videoId}
                 className={styles.videoPlayer}
                 opts={opts}
-                onReady={onReady}
-                onStateChange={onStateChange}
+                onReady={onReadyHandler}
+                onStateChange={onStateChangeHandler}
             />
         </Fragment>
     );

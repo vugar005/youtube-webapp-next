@@ -56,11 +56,11 @@ export default function HistoryPage() {
             .subscribe((data: IYoutubeSearchItem[]) => {
                 setWatchedVideos(data);
             });
-    }, [watchedVideoIds])
+    }, [fetchSeachItems])
 
     useEffect(() => {
         getWatchedVideos(watchedVideoIds);
-    }, [watchedVideoIds]);
+    }, [watchedVideoIds, getWatchedVideos]);
 
 
     if (isLoading) {

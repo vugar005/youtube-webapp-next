@@ -18,7 +18,7 @@ export default function WatchVideo() {
 
     useEffect(() => {
         fetchVideoItems({ id: videoId});
-    }, [videoId]);
+    }, [videoId, fetchVideoItems]);
 
     return (
         <Fragment>

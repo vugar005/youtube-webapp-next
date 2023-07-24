@@ -32,7 +32,7 @@ export default function ShareVideoDialog(props: Props) {
         if (hasStartTime) {
             setVideoUrl(`${videoUrl}?t=${currenVideoTime}`);
         } else {
-            setVideoUrl(props.videoUrl);
+            setVideoUrl(videoUrl);
         }
     }, [hasStartTime, videoUrl, currenVideoTime]);
 

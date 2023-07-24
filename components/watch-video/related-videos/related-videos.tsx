@@ -17,7 +17,7 @@ export default function RelatedVideos(props: Props) {
     useEffect(() => {
         if (!query) { return; }
         fetchSeachItems({ query: query })
-    }, [query]);
+    }, [query, fetchSeachItems]);
 
     if (isSearchItemsLoading) {
         return (

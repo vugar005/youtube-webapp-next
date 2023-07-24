@@ -27,11 +27,11 @@ export default function BrowserVideos() {
 
     useEffect(() => {
         fetchSeachItems({ query: searchQuery })
-    }, [searchQuery]);
+    }, [searchQuery, fetchSeachItems]);
 
     useEffect(() => {
         fetchVideoItems({ id: videoIds })
-    }, [videoIds]);
+    }, [videoIds, fetchVideoItems]);
 
     if (searchItemsError) {
         return (

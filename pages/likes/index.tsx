@@ -30,11 +30,11 @@ export default function Likes() {
             .subscribe((data: IYoutubeSearchItem[]) => {
                 setLikedVideos(data);
             });
-    }, [videoIds])
+    }, [fetchSeachItems])
 
     useEffect(() => {
         getLikedVideosInfo(videoIds);
-    }, [videoIds]);
+    }, [videoIds, getLikedVideosInfo]);
 
     const loadingTemplate = () => {
         return (

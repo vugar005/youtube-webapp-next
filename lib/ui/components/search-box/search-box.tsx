@@ -34,7 +34,7 @@ export default function SearchBox(props: Props) {
             });
 
         return () => sub?.unsubscribe();
-    }, []);
+    }, [fetchSeachItems, debouncePeriod]);
 
     useEffect(() => {
         optionSelected$.current.next(inputValue);
@@ -47,7 +47,7 @@ export default function SearchBox(props: Props) {
             return;
         }
         router.push(`/watch?v=${selectedItem?.id?.videoId}`);
-    }, [value]);
+    }, [value, router, searchItems]);
 
     return (
         <div className={styles.host}>
