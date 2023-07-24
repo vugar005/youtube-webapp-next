@@ -1,7 +1,7 @@
 import { AccountCircle, Diamond, Keyboard, NightlightRounded, Policy, ShowChart, VideoSettings } from "@mui/icons-material";
 import { Fragment } from "react";
 import styles from './account-sidebar.module.scss';
-import { Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import packageJson from '../../package.json';
 
 export default function AccountSidebar() {
@@ -12,7 +12,7 @@ export default function AccountSidebar() {
             <div className={styles.sidebar}>
                 <div className={styles.sidebarTop}>
                     <div className={styles.sidebarTop__avatar}>
-                        <AccountCircle sx={{width: '4rem', height: '4rem'}} />
+                        <AccountCircle sx={{ width: '4rem', height: '4rem' }} />
                     </div>
                     <div className={styles.sidebarTop__text}>
                         <h2 className="mat-h2">Anonymous</h2>
@@ -23,51 +23,61 @@ export default function AccountSidebar() {
                 <Divider />
 
                 <div className={styles.sidebarContent}>
-                    <div className={styles.sidebarContentItem}>
+                    <Button className={styles.sidebarContentItem}>
                         <div className={styles.sidebarContentItem__icon}>
                             <NightlightRounded />
                         </div>
                         <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Change Appearance</div>
-                    </div>
+                    </Button>
 
-                    <div className={styles.sidebarContentItem}>
+                    <Button className={styles.sidebarContentItem}>
                         <div className={styles.sidebarContentItem__icon}>
                             <Diamond />
                         </div>
-                        <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Source Code</div>
-                    </div>
 
-                    <div className={styles.sidebarContentItem}>
+                        <a
+                            href="https://github.com/vugar005/youtube-webapp-next"
+                            target="_blank"
+                            className={`mat-h3 ${styles.sidebarContentItem__text}`}
+                        >Source Code</a>
+
+                    </Button>
+
+                    <Button className={styles.sidebarContentItem} disabled={true}>
                         <div className={styles.sidebarContentItem__icon}>
                             <Keyboard />
                         </div>
                         <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Keyboard shortcuts</div>
-                    </div>
+                    </Button>
 
-                    <div className={styles.sidebarContentItem}>
+                    <Button className={styles.sidebarContentItem} disabled={true}>
                         <div className={styles.sidebarContentItem__icon}>
                             <VideoSettings />
                         </div>
                         <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Change Youtube API Service</div>
-                    </div>
+                    </Button>
 
-                    <div className={styles.sidebarContentItem}>
+                    <Button className={styles.sidebarContentItem}>
                         <div className={styles.sidebarContentItem__icon}>
                             <Policy />
                         </div>
                         <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Policy & Terms</div>
-                    </div>
+                    </Button>
 
-                    <a
-                        className={styles.sidebarContentItem}
-                        href="https://www.vugar.app"
-                        target="_blank"
-                    >
+                    <Button className={styles.sidebarContentItem}>
+
                         <div className={styles.sidebarContentItem__icon}>
                             <ShowChart />
                         </div>
-                        <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>About Author</div>
-                    </a>
+
+                        <a
+                            href="https://www.vugar.app"
+                            target="_blank"
+                            className={`mat-h3 ${styles.sidebarContentItem__text}`}
+                        >
+                            About Author
+                        </a>
+                    </Button>
                 </div>
 
             </div>
