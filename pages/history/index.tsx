@@ -30,7 +30,7 @@ export default function HistoryPage() {
         dispatch(toggleIsWatchHistoryEnabled(enable))
     }
 
-    const getWatchedVideos =  useCallback((videoIds: string[] | undefined): void => {
+    const getWatchedVideos = useCallback((videoIds: string[] | undefined): void => {
         setWatchedVideos([]);
         setisLoading(true);
         if (!videoIds?.length) {
@@ -123,7 +123,11 @@ export default function HistoryPage() {
                                     className={styles.videoItem} key={videoIndex}
                                 >
                                     <div className={styles.videoItem__thumbnail}>
-                                        <VideoThumbnail searchItem={video} direction="vertical" />
+                                        <Link href={`/watch?v=${video.id?.videoId}`}>
+
+                                            <VideoThumbnail searchItem={video} direction="vertical" />
+                                        </Link>
+
                                     </div>
                                 </div>
                             );

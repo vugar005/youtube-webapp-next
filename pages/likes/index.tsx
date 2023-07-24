@@ -8,6 +8,7 @@ import { EMPTY, Observable, catchError, filter, forkJoin, from, map, of, tap } f
 import { useSearchList } from "@/lib/ui/hooks/useSearchList";
 import VideoThumbnailLoader from "@/lib/ui/components/video-thumbnail-loader/video-thumbnail-loader";
 import { Search } from "@mui/icons-material";
+import Link from "next/link";
 
 export default function Likes() {
     const videoIds = useAppSelector(selectLikedVideos);
@@ -121,10 +122,12 @@ export default function Likes() {
                                         {<div className={styles.videoItem__index}>{videoIndex + 1}</div>}
 
                                         <div className={styles.videoItem__thumbnail}>
-                                            <VideoThumbnail
-                                                searchItem={video}
-                                                direction="vertical"
-                                            />
+                                            <Link href={`/watch?v=${video.id?.videoId}`}>
+                                                <VideoThumbnail
+                                                    searchItem={video}
+                                                    direction="vertical"
+                                                />
+                                            </Link>
                                         </div>
                                     </div>
                                 );
