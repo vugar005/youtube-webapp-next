@@ -40,14 +40,14 @@ export default function VideoPlayer(props: Props) {
             props.onReady(videPlayerRef);
         }
 
-    }, []);
+    }, [props.onReady]);
 
     const onStateChange = useCallback((event: YouTubeEvent<any>) => {
         if (props.onStateChange) {
             props.onStateChange(event);
         }
 
-    }, []);
+    }, [props.onStateChange]);
 
     return (
         <Fragment>
