@@ -2,14 +2,24 @@ import BrandIcon from "@/lib/ui/components/brand-icon";
 import { Divider, Icon, IconButton } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 
-import { Fragment } from "react";
+import { Fragment, useCallback } from "react";
 import { SIDEBAR_NAV_ENDPOINTS } from "./left-sidebar.constants";
 import { INavLink } from "@/lib/ui/models/nav-link.model";
 import styles from './left-sidebar.module.scss';
-import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function LeftSidebar() {
+interface Props {
+    navigateHandler: () => void
+}
+
+export default function LeftSidebar(props: Props) {
+    const router = useRouter();
     const endpointLinks: INavLink[] = SIDEBAR_NAV_ENDPOINTS;
+
+    const onNavigate = useCallback((link: string) => {
+        router.push(`/${link}`);
+        props?.navigateHandler();
+    }, [router]);
 
     return (
         <Fragment>
@@ -30,16 +40,14 @@ export default function LeftSidebar() {
 
                     {endpointLinks.map((endpoint, index) => {
                         return (
-                            <Link href={`/${endpoint.url}`} key={index}>
-                                <div
-                                    className={styles['sidebar-endpoint']}
-                                >
-                                    <div className={styles['sidebar-endpoint__icon']}>
-                                        <Icon>{endpoint?.icon}</Icon>
-                                    </div>
-                                    <div className={`mat-h3 ${styles['sidebar-endpoint__text']}`}>{endpoint?.text}</div>
+                            <div onClick={() => onNavigate(endpoint.url)} key={index}
+                                className={styles['sidebar-endpoint']}
+                            >
+                                <div className={styles['sidebar-endpoint__icon']}>
+                                    <Icon>{endpoint?.icon}</Icon>
                                 </div>
-                            </Link>
+                                <div className={`mat-h3 ${styles['sidebar-endpoint__text']}`}>{endpoint?.text}</div>
+                            </div>
                         );
                     })}
 
