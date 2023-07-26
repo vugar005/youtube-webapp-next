@@ -46,9 +46,11 @@ export default function VideoThumbnail(props: Props) {
                             />
                         }
 
-                        <div className={styles.thumbnail__image__duration} >
-                            {duration}
-                        </div>
+                        {duration &&
+                            <div className={styles.thumbnail__image__duration} >
+                                {duration}
+                            </div>
+                        }
 
                         <div className={styles.imageBackdrop}></div>
                         {isNowPlaying &&
