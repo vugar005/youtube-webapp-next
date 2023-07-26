@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import styles from './account-sidebar.module.scss';
 import { Button, Divider } from "@mui/material";
 import packageJson from '../../package.json';
+import Link from "next/link";
 
 export default function AccountSidebar() {
     const nextVersion = packageJson.dependencies.next;
@@ -57,12 +58,14 @@ export default function AccountSidebar() {
                         <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Change Youtube API Service</div>
                     </Button>
 
-                    <Button className={styles.sidebarContentItem}>
-                        <div className={styles.sidebarContentItem__icon}>
-                            <Policy />
-                        </div>
-                        <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Policy & Terms</div>
-                    </Button>
+                    <Link href={'/policy-terms'}>
+                        <Button className={styles.sidebarContentItem}>
+                            <div className={styles.sidebarContentItem__icon}>
+                                <Policy />
+                            </div>
+                            <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Policy & Terms</div>
+                        </Button>
+                    </Link>
 
                     <Button className={styles.sidebarContentItem}>
 

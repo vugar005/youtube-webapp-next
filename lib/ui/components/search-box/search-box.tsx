@@ -47,7 +47,13 @@ export default function SearchBox(props: Props) {
             return;
         }
         router.push(`/watch?v=${selectedItem?.id?.videoId}`);
-    }, [value, router, searchItems]);
+    }, [value, searchItems, router ]);
+
+    const handleKeyUp = (event: React.KeyboardEvent): void => {
+        if(event.key?.toUpperCase() === 'ENTER') {
+            console.log('en');
+        }
+    };
 
     return (
         <div className={styles.host}>
@@ -68,7 +74,7 @@ export default function SearchBox(props: Props) {
                             setInputValue(newInputValue);
                         }}
                         renderInput={(params) =>
-                            <TextField {...params} label={placeholder} />}
+                            <TextField {...params} onKeyUp={handleKeyUp}  label={placeholder} />}
                     />
 
                 </div>

@@ -12,6 +12,7 @@ import Link from "next/link";
 import SearchBox from "@/lib/ui/components/search-box/search-box";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { AppTheme, selectSettingsTheme, setTheme } from "@/store/reducers/settings.reducer";
+import { LocalStorageEnum } from "@/lib/ui/constants/local-storage.constants";
 
 type Anchor = 'left' | 'right';
 
@@ -43,8 +44,10 @@ export default function NavHeader() {
     const onChageTheme = () => {
         if (theme === AppTheme.DARK) {
             dispatch(setTheme({ theme: AppTheme.LIGHT }))
+            localStorage.setItem(LocalStorageEnum.SAVED_THEME, AppTheme.LIGHT);
         } else {
             dispatch(setTheme({ theme: AppTheme.DARK }))
+            localStorage.setItem(LocalStorageEnum.SAVED_THEME, AppTheme.DARK);
         }
     };
 
