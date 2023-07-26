@@ -9,30 +9,35 @@ import styles from './left-sidebar.module.scss';
 import { useRouter } from "next/router";
 
 interface Props {
-    navigateHandler: () => void
+    closeHandler: () => void
 }
 
 export default function LeftSidebar(props: Props) {
     const router = useRouter();
     const endpointLinks: INavLink[] = SIDEBAR_NAV_ENDPOINTS;
 
+
+    const closeSidebar = useCallback(() => {
+        props?.closeHandler();
+    }, [props]);
+
     const onNavigate = useCallback((link: string) => {
         router.push(`/${link}`);
-        props?.navigateHandler();
-    }, [router]);
+        closeSidebar();
+    }, [router, closeSidebar]);
 
     return (
         <Fragment>
             <div className={styles.sidebar}>
                 <div className={styles['sidebar__header']}>
-                    <div className={styles['header-nav-icon']}>
+                    <div className={styles['header-nav-icon']} onClick={closeSidebar}>
                         <IconButton
                             className={styles['header-nav-icon__btn']}
                         >
                             <MenuIcon />
                         </IconButton>
                     </div>
-                    <div >
+                    <div onClick={closeSidebar}>
                         <BrandIcon className={styles['header-brand-icon']}></BrandIcon>
                     </div>
                 </div>

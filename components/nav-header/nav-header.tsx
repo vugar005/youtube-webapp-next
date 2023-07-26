@@ -71,7 +71,7 @@ export default function NavHeader() {
                             open={isSidenavOpen['left']}
                             onClose={toggleDrawer('left', false)}
                         >
-                            <LeftSidebar navigateHandler={toggleDrawer('left', false)} />
+                            <LeftSidebar closeHandler={toggleDrawer('left', false)} />
                         </Drawer>
 
                         <Drawer
