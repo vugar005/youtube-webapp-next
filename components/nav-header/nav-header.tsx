@@ -13,11 +13,15 @@ import SearchBox from "@/lib/ui/components/search-box/search-box";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { AppTheme, selectSettingsTheme, setTheme } from "@/store/reducers/settings.reducer";
 import { LocalStorageEnum } from "@/lib/ui/constants/local-storage.constants";
+import { IYoutubeSearchItem } from "@/lib/ui/models/youtube-search-list.model";
+import { useRouter } from "next/router";
+import { setVideoSearchQuery } from "@/store/reducers/video.reducer";
 
 type Anchor = 'left' | 'right';
 
 export default function NavHeader() {
     const dispatch = useAppDispatch();
+    const router = useRouter();
     const theme = useAppSelector(selectSettingsTheme);
 
     const [featureAnchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -29,11 +33,11 @@ export default function NavHeader() {
     const isFeatureMenuOpen = Boolean(featureAnchorEl);
     const navFeatures = NAV_FEATURES;
 
-    const handleFeatureMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    const handleFeatureMenuClick = (event: React.MouseEvent<HTMLElement>): void => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleFeatureMenuClose = () => {
+    const handleFeatureMenuClose = (): void => {
         setAnchorEl(null);
     };
 
@@ -41,7 +45,7 @@ export default function NavHeader() {
         setSidenavOpen({ ...isSidenavOpen, [anchor]: open });
     };
 
-    const onChageTheme = () => {
+    const onChageTheme = (): void => {
         if (theme === AppTheme.DARK) {
             dispatch(setTheme({ theme: AppTheme.LIGHT }))
             localStorage.setItem(LocalStorageEnum.SAVED_THEME, AppTheme.LIGHT);
@@ -50,6 +54,14 @@ export default function NavHeader() {
             localStorage.setItem(LocalStorageEnum.SAVED_THEME, AppTheme.DARK);
         }
     };
+
+    const inputChangeHandler = (option: IYoutubeSearchItem | string): void => {
+        if (typeof option === 'object') {
+            router.push(`/watch?v=${option?.id?.videoId}`);
+        } else {
+            dispatch(setVideoSearchQuery(option))
+        }
+    }
 
     return (
         <Fragment>
@@ -91,7 +103,7 @@ export default function NavHeader() {
                     </div>
 
                     <div className={styles.header__center}>
-                        <SearchBox />
+                        <SearchBox inputChangeHandler={inputChangeHandler} />
                     </div>
 
                     <div className={styles.header__end}>

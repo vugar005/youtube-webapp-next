@@ -6,21 +6,26 @@ import { useEffect, useRef, useState } from 'react';
 import { useSearchList } from '../../hooks/useSearchList';
 import { Subject, from } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import { useRouter } from 'next/router';
 import { IYoutubeSearchItem } from '../../models/youtube-search-list.model';
 
 interface Props {
     debouncePeriod?: number;
     placeholder?: string;
+    inputChangeHandler: (value: IYoutubeSearchItem | string) => void
 }
 export default function SearchBox(props: Props) {
-    const router = useRouter();
     const { placeholder, debouncePeriod = 300 } = props;
-    const [inputValue, setInputValue] = useState('');
-    const [options, setOptions] = useState<string[]>([]);
-    const [value, setValue] = useState<string | null>('');
-    const { fetchSeachItems, searchItems, isSearchItemsLoading } = useSearchList();
+    const [inputValue, setInputValue] = useState<string>('');
+    const [options, setOptions] = useState<IYoutubeSearchItem[]>([]);
+    const { fetchSeachItems, isSearchItemsLoading } = useSearchList();
     const optionSelected$ = useRef(new Subject<string>());
+
+    const getOptionLabel = (option: IYoutubeSearchItem | string): string => {
+        if (typeof option === 'string') {
+            return option;
+        }
+        return option.snippet?.title || ''
+    }
 
     useEffect(() => {
         const sub = optionSelected$.current
@@ -29,7 +34,7 @@ export default function SearchBox(props: Props) {
                 switchMap((val) => from(fetchSeachItems({ query: val })))
             )
             .subscribe((data: IYoutubeSearchItem[] | undefined) => {
-                const items = data?.map((item) => item.snippet?.title) || [];
+                const items = data || [];
                 setOptions(items);
             });
 
@@ -40,21 +45,6 @@ export default function SearchBox(props: Props) {
         optionSelected$.current.next(inputValue);
     }, [inputValue]);
 
-    useEffect(() => {
-        if (!value) { return; }
-        const selectedItem = searchItems?.find(item => item.snippet?.title === value);
-        if (!selectedItem?.id?.videoId) {
-            return;
-        }
-        router.push(`/watch?v=${selectedItem?.id?.videoId}`);
-    }, [value, searchItems, router ]);
-
-    const handleKeyUp = (event: React.KeyboardEvent): void => {
-        if(event.key?.toUpperCase() === 'ENTER') {
-            console.log('en');
-        }
-    };
-
     return (
         <div className={styles.host}>
             <div className={styles.searchboxWrapper}>
@@ -62,19 +52,17 @@ export default function SearchBox(props: Props) {
                     <Autocomplete
                         freeSolo
                         options={options}
-                        value={value}
+                        getOptionLabel={getOptionLabel}
+                        disableClearable
                         loading={isSearchItemsLoading}
                         filterOptions={(x) => x}
                         sx={{ height: '100%', fontSize: '1.4rem' }}
-                        onChange={(event: any, newValue: string | null) => {
-                            setValue(newValue);
-                        }}
-                        inputValue={inputValue}
+                        onChange={(event: any, newValue: IYoutubeSearchItem | string) => props?.inputChangeHandler(newValue)}
                         onInputChange={(event, newInputValue) => {
                             setInputValue(newInputValue);
                         }}
                         renderInput={(params) =>
-                            <TextField {...params} onKeyUp={handleKeyUp}  label={placeholder} />}
+                            <TextField {...params} label={placeholder} />}
                     />
 
                 </div>
