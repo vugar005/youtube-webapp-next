@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import styles from './browse-videos.module.scss';
 import MiniSidebar from '../mini-sidebar/mini-sidebar';
 import { IYoutubeVideoItem } from '@/lib/ui/models/youtube-video-list.model';
@@ -13,17 +13,19 @@ import BrowseVideosError from './browse-videos-error/browse-videos-error';
 import Link from 'next/link';
 
 export default function BrowserVideos() {
-
+    const [videoIds, setVideoIds] = useState<string | undefined>();
     const searchQuery = useAppSelector(selectSearchQuery);
     const { fetchSeachItems, searchItems, isSearchItemsLoading, searchItemsError } = useSearchList();
-
-    const videoIds = searchItems?.map((item) => item.id?.videoId).join(',');
-
     const { fetchVideoItems, videoItems } = useVideoList();
 
     const getVideoDetail = useCallback((id: string | undefined): IYoutubeVideoItem | undefined => {
         return videoItems?.find((videoItem) => videoItem.items[0].id === id)?.items?.[0];
     }, [videoItems])
+
+    useEffect(() => {
+        const ids = searchItems?.map((item) => item.id?.videoId).join(',');
+        setVideoIds(ids);
+    }, [searchItems]);
 
     useEffect(() => {
         fetchSeachItems({ query: searchQuery })

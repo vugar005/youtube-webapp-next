@@ -10,10 +10,10 @@ export interface AccountState {
 }
 
 const initialState: AccountState = {
-    likedVideoList: ['aubKbTYx804', 'G31l5knrVQo'],
+    likedVideoList: [],
     dislikedVideoList: [],
     isAuthenticated: false,
-    watchedVideos: ['aubKbTYx804', 'G31l5knrVQo'],
+    watchedVideos: [],
     isWatchHistoryEnabled: true,
 };
 
