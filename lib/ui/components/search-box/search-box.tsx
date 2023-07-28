@@ -1,11 +1,11 @@
 import styles from './search-box.module.scss';
 import { Search } from "@mui/icons-material";
 import TextField from "@mui/material/TextField";
+import Autocomplete from '@mui/material/Autocomplete';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchList } from '../../hooks/useSearchList';
 import { Subject, from } from 'rxjs';
 import { debounceTime, switchMap } from 'rxjs/operators';
-import Autocomplete from '@mui/material/Autocomplete';
 import { useRouter } from 'next/router';
 import { IYoutubeSearchItem } from '../../models/youtube-search-list.model';
 
@@ -28,7 +28,7 @@ export default function SearchBox(props: Props) {
                 debounceTime(debouncePeriod),
                 switchMap((val) => from(fetchSeachItems({ query: val })))
             )
-            .subscribe((data: IYoutubeSearchItem[]) => {
+            .subscribe((data: IYoutubeSearchItem[] | undefined) => {
                 const items = data?.map((item) => item.snippet?.title) || [];
                 setOptions(items);
             });
