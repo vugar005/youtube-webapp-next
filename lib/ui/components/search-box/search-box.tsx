@@ -61,8 +61,12 @@ export default function SearchBox(props: Props) {
                         onInputChange={(event, newInputValue) => {
                             setInputValue(newInputValue);
                         }}
-                        renderInput={(params) =>
-                            <TextField {...params} label={placeholder} />}
+                        renderInput={(params) => {
+                            return (
+                                <TextField {...params} label={placeholder} />
+                            )
+                           }
+                        }
                     />
 
                 </div>
