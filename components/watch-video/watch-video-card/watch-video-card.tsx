@@ -107,8 +107,8 @@ export default function WatchVideoCard(props: Props) {
 
                         <div className={styles.videoDetailsActions}>
                             <Button sx={buttonStyles} className={styles.videoDetailsActions__item} onClick={onToggleLike}>
-                                {isLiked() && <ThumbUpOffAltIcon className={styles.videoDetailsActions__item__icon} />}
-                                {!isLiked() && <ThumbUpIcon className={styles.videoDetailsActions__item__icon} />}
+                                {isLiked() && <ThumbUpIcon className={styles.videoDetailsActions__item__icon} />}
+                                {!isLiked() && <ThumbUpOffAltIcon className={styles.videoDetailsActions__item__icon} />}
 
                                 <p className={`${styles.videoDetailsActions__item__text} mat-h3`}
                                 >

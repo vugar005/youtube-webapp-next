@@ -34,7 +34,7 @@ export default function ShareVideoDialog(props: Props) {
         } else {
             setVideoUrl(videoUrl);
         }
-    }, [hasStartTime, videoUrl, currenVideoTime]);
+    }, [hasStartTime, currenVideoTime]);
 
     return (
         <Dialog open={open} onClose={props.handleClose}>
