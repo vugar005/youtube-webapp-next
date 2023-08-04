@@ -7,7 +7,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ---
 **Disclaimer**:
 
-*This is project is for education purpose only and was made to illustrate example of building microfrontend using Angular, Module Federation.*   
+*This is project is for education purpose only and was made to illustrate example of building Youtube clone using NextJs.*   
 
 ---
 
