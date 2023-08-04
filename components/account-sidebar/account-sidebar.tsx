@@ -1,12 +1,38 @@
 import { AccountCircle, Diamond, Keyboard, NightlightRounded, Policy, ShowChart, VideoSettings } from "@mui/icons-material";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import styles from './account-sidebar.module.scss';
-import { Button, Divider } from "@mui/material";
+import { Button, Divider, Menu, MenuItem } from "@mui/material";
 import packageJson from '../../package.json';
 import Link from "next/link";
+import { AppTheme, setTheme } from "@/store/reducers/settings.reducer";
+import { useAppDispatch } from "@/store/hooks";
+import { LocalStorageEnum } from "@/lib/ui/constants/local-storage.constants";
 
 export default function AccountSidebar() {
+    const dispatch = useAppDispatch();
     const nextVersion = packageJson.dependencies.next;
+    const [appearanceMenuAnchor, setAppearanceMenuAnchor] = useState<null | HTMLElement>(null);
+    const isAppearanceMenuOpen = Boolean(appearanceMenuAnchor);
+
+    const onOpenAppearanceMenu = (event: React.MouseEvent<HTMLElement>): void => {
+        setAppearanceMenuAnchor(event.currentTarget);
+    };
+
+    const onCloseAppearanceMenu = (event: React.MouseEvent<HTMLElement>): void => {
+        setAppearanceMenuAnchor(null);
+    };
+
+    const handleAppearanceMenuClose = (theme: AppTheme): void => {
+        setAppearanceMenuAnchor(null);
+        console.log(theme)
+        if (theme === AppTheme.DARK) {
+            dispatch(setTheme({ theme: AppTheme.DARK }))
+            localStorage.setItem(LocalStorageEnum.SAVED_THEME, AppTheme.DARK);
+        } else {
+            dispatch(setTheme({ theme: AppTheme.LIGHT }))
+            localStorage.setItem(LocalStorageEnum.SAVED_THEME, AppTheme.LIGHT);
+        }
+    };
 
     return (
         <Fragment>
@@ -24,12 +50,42 @@ export default function AccountSidebar() {
                 <Divider />
 
                 <div className={styles.sidebarContent}>
-                    <Button className={styles.sidebarContentItem}>
-                        <div className={styles.sidebarContentItem__icon}>
+
+                    <Button
+                        className={styles.sidebarContentItem}
+                        onClick={onOpenAppearanceMenu}
+                    >
+                   <div className={styles.sidebarContentItem__icon}>
                             <NightlightRounded />
-                        </div>
-                        <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Change Appearance</div>
+                    </div>
+
+                     <div className={`mat-h3 ${styles.sidebarContentItem__text}`}>Change Appearance</div>
                     </Button>
+
+                    <Menu
+                        anchorEl={appearanceMenuAnchor}
+                        open={isAppearanceMenuOpen}
+                        onClose={onCloseAppearanceMenu}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'left',
+                        }}
+                        slotProps={{
+                            paper: {
+                                sx: {
+                                  width: '200px',
+                                  maxWidth: '200px',
+                                },
+                              },
+                        }}
+                    >
+                        <MenuItem onClick={() => handleAppearanceMenuClose(AppTheme.LIGHT)}>Light Theme</MenuItem>
+                        <MenuItem onClick={() => handleAppearanceMenuClose(AppTheme.DARK)}>Dark Theme</MenuItem>
+                   </Menu>
 
                     <Button className={styles.sidebarContentItem}>
                         <div className={styles.sidebarContentItem__icon}>
