@@ -66,12 +66,12 @@ export default function NavHeader() {
     return (
         <Fragment>
 
-            <div className={styles['header-host']}>
+            <div className={styles.host}>
                 <div className={styles.header}>
                     <div className={styles.header__start}>
-                        <div className={styles['header-nav-icon']} >
+                        <div className={styles.headerNavIcon}>
                             <IconButton
-                                className={styles['header-nav-icon__btn']}
+                                className={styles.headerNavIcon__btn}
                                 onClick={toggleDrawer('left', true)}
                             >
                                 <MenuIcon />
@@ -95,9 +95,9 @@ export default function NavHeader() {
                         </Drawer>
 
                         <Link href="/">
-                            <div className={styles['header-brand-icon']}>
-                                <BrandIcon className={styles['brand-icon']} />
-                                <span className={styles['header-brand-icon__country-code']}>PL</span>
+                            <div className={styles.headerBrandIcon}>
+                                <BrandIcon className={styles.brandIcon} />
+                                <span className={styles.headerBrandIcon__countryCode}>PL</span>
                             </div>
                         </Link>
                     </div>
@@ -107,9 +107,9 @@ export default function NavHeader() {
                     </div>
 
                     <div className={styles.header__end}>
-                        <div className={styles['header-feature header-feature--community']}>
+                        <div className={`${styles.headerFeature} ${styles[`headerFeature--community`]}`}>
                             <IconButton
-                                className={styles['header-nav-icon__btn']}
+                                className={styles.headerNavIcon__btn}
                                 onClick={handleFeatureMenuClick}
                             >
                                 <GridView />
@@ -163,16 +163,16 @@ export default function NavHeader() {
 
                         </div>
 
-                        <div className={styles['header-feature']}>
-                            <IconButton className={styles['header-nav-icon__btn']} onClick={onChageTheme}>
+                        <div className={styles.headerFeature}>
+                            <IconButton className={styles.headerNavIcon__btn} onClick={onChageTheme}>
                                 <Lightbulb />
                             </IconButton>
                         </div>
 
-                        <div className={styles['header-feature flash']}>
+                        <div className={`${styles.headerFeature} ${styles[`flash`]}`}>
                             <IconButton
                                 onClick={toggleDrawer('right', true)}
-                                className={styles['header-nav-icon__btn']}
+                                className={styles.headerNavIcon__btn}
                             >
                                 <AccountCircle />
                             </IconButton>

@@ -30,11 +30,11 @@ export default function ShareVideoDialog(props: Props) {
 
     useEffect(() => {
         if (hasStartTime) {
-            setVideoUrl(`${videoUrl}?t=${currenVideoTime}`);
+            setVideoUrl(`${props.videoUrl}?t=${currenVideoTime}`);
         } else {
-            setVideoUrl(videoUrl);
+            setVideoUrl(props.videoUrl);
         }
-    }, [hasStartTime, currenVideoTime]);
+    }, [hasStartTime, props.videoUrl, currenVideoTime]);
 
     return (
         <Dialog open={open} onClose={props.handleClose}>
