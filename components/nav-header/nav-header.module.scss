@@ -1,0 +1,86 @@
+.host {
+  display: block;
+  height: var(--ytd-watch-flexy-masthead-height);
+  padding: 0 16px;
+  border-bottom: 1px solid var(--yt-spec-10-percent-layer);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+
+  &__start {
+    display: flex;
+    align-items: center;
+    height: var(--ytd-watch-flexy-masthead-height);
+  }
+
+  &__center {
+    flex: 0 1 504px;
+  }
+
+  &__end {
+    display: flex;
+  }
+}
+
+.headerNavIcon {
+  &__btn {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    width: 40px;
+    height: 40px;
+    color: var(--yt-spec-text-primary);
+  }
+}
+
+.headerBrandIcon {
+  position: relative;
+  margin-right: 10px;
+
+  .brandIcon {
+    width: 97px;
+    margin-left: 16px;
+  }
+
+  &__countryCode {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    font-size: 0.8rem;
+    color: var(--yt-spec-text-secondary);
+  }
+}
+
+.headerFeature {
+  width: var(--yt-header-feature-icon-width);
+  height: var(--yt-header-feature-icon-height);
+  margin-left: 0.8rem;
+  font-size: 2.4rem;
+  overflow: hidden;
+
+  &--community {
+    display: none;
+  }
+
+  button {
+    background: transparent;
+    box-shadow: none;
+    color: var(--yt-spec-text-primary);
+  }
+}
+
+.featureTooltip {
+  font-size: 0.7rem;
+}
+
+@media (min-width: 768px) {
+  .headerFeature {
+    &--community {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.emptyTemplate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    width: 100%;
+
+    .emptyTemplateIcon {
+        width: 10rem;
+        height: 10rem;
+        font-size: 10rem;
+        overflow: hidden;
+        color: var(--yt-primary-50);
+    }
+
+    &__text {
+        text-align: center;
+
+        h2 {
+            margin-bottom: 5px;
+        }
+    }
+}
